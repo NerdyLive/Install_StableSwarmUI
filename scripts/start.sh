@@ -75,4 +75,6 @@ start_SWui() {
     /bin/bash ./launch-linux.sh --host 0.0.0.0 --port 2254  --launch_mode none &
 }
 start_SWui
+
 echo "started Services, ready!"
+sleep infinity
