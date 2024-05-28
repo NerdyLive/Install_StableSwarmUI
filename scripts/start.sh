@@ -48,6 +48,12 @@ start_ssh() {
     service ssh start
 }
 
+sync_workspace() {
+  echo "Syncing workspace..."
+  rclone sync "${ROOT}" "${RP_VOLUME}"
+  cd "${RP_VOLUME}" || return
+}
+
 #call the functions
 start_nginx
 start_jupyter
@@ -62,11 +68,11 @@ export_env_vars() {
 }
 
 export_env_vars
+sync_workspace
 
 start_SWui() {
     echo "Starting SWui service..."
     /bin/bash ./launch-linux.sh --host 0.0.0.0 --port 2254  --launch_mode none &
 }
-
 start_SWui
 echo "started Services, ready!"

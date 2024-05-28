@@ -12,7 +12,8 @@ ENV PIP_PREFER_BINARY=1
 # Ensures output from python is printed immediately to the terminal without buffering
 ENV PYTHONUNBUFFERED=1
 
-ENV ROOT="/workspace"
+ENV ROOT="/rp-vol" \
+	RP_VOLUME="/workspace"
 ENV HF_DATASETS_CACHE="/runpod-volume/huggingface-cache/datasets" \
     HUGGINGFACE_HUB_CACHE="/runpod-volume/huggingface-cache/hub" \
     HF_HOME="/runpod-volume/huggingface-cache" \
