@@ -51,7 +51,7 @@ start_ssh() {
 sync_workspace() {
   echo "Syncing workspace..."
   rclone sync "${ROOT}" "${RP_VOLUME}"
-  cd "${RP_VOLUME}" || return
+  echo "Workspace synced"
 }
 
 #call the functions
@@ -72,7 +72,7 @@ sync_workspace
 
 start_SWui() {
     echo "Starting SWui service..."
-    /bin/bash "${RP_VOLUME}/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254  --launch_mode none &"
+    /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
 }
 start_SWui
 
