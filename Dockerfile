@@ -125,6 +125,7 @@ RUN rm dotnet-install.sh
 RUN git clone https://github.com/Stability-AI/StableSwarmUI.git
 
 WORKDIR ${ROOT}/StableSwarmUI
+ENV SWARM_NO_VENV = "false"
 RUN git pull
 
 COPY --chmod=755 ./scripts/* ./

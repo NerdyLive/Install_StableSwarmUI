@@ -65,7 +65,7 @@ export_env_vars
 
 start_SWui() {
     echo "Starting SWui service..."
-    /bin/bash ./launch-linux.sh --host 0.0.0.0 --port 2254  --launch_mode none
+    /bin/bash ./launch-linux.sh --host 0.0.0.0 --port 2254  --launch_mode none &
 }
 
 start_SWui
