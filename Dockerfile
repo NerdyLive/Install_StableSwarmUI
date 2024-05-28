@@ -127,9 +127,7 @@ RUN git clone https://github.com/Stability-AI/StableSwarmUI.git
 WORKDIR ${ROOT}/StableSwarmUI
 RUN git pull
 
-WORKDIR /
 COPY --chmod=755 ./scripts/* ./
 
 # START
-SHELL ["/bin/bash", "--login", "-c"]
 CMD ["./start.sh"]
