@@ -5,7 +5,7 @@
 
 start_nginx() {
     echo "Starting Nginx service..."
-    systemcl start nginx
+    systemctl start nginx
 }
 
 start_jupyter() {
