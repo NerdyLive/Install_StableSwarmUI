@@ -73,7 +73,7 @@ WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 
 RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-RUN /bin/bash -c 'chmod +x dotnet-install.sh'.
+RUN /bin/bash -c 'chmod +x dotnet-install.sh'
 RUN ./dotnet-install.sh --channel 7.0
 RUN ./dotnet-install.sh --channel 8.0
 
