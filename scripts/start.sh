@@ -22,7 +22,7 @@ start_jupyter() {
     cd / && \
     nohup jupyter lab --allow-root \
       --no-browser \
-      --port=8888 \
+      --port=7888 \
       --ip=* \
       --FileContentsManager.delete_to_trash=False \
       --ContentsManager.allow_hidden=True \
