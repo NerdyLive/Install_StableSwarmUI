@@ -23,32 +23,73 @@ RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
     --mount=type=cache,id=dev-apt-lib,sharing=locked,target=/var/lib/apt \
 	apt update && \
     apt upgrade -y && \
-    apt install -y \
-      python3-pip \
-      fonts-dejavu-core \
-      rsync \
-      git \
-      jq \
-      moreutils \
-      aria2 \
-      wget \
-      curl \
-      libglib2.0-0 \
-      libsm6 \
-      libgl1 \
-      libxrender1 \
-	  libjpeg-dev \
-      libpng-dev \
-      libxext6 \
-      ffmpeg \
-      libglfw3-dev libgles2-mesa-dev pkg-config \
-      libcairo2 libcairo2-dev \
-      libgoogle-perftools4 \
-      libtcmalloc-minimal4 \
-      build-essential \
-      procps
+    apt install -y --no-install-recommends \
+        build-essential \
+        software-properties-common \
+        python3.10-venv \
+        python3-pip \
+        python3-tk \
+        python3-dev \
+        nodejs \
+        npm \
+        bash \
+        dos2unix \
+        git \
+        git-lfs \
+        ncdu \
+        nginx \
+        net-tools \
+        dnsutils \
+        inetutils-ping \
+        openssh-server \
+        libglib2.0-0 \
+        libsm6 \
+        libgl1 \
+        libxrender1 \
+        libxext6 \
+        ffmpeg \
+        wget \
+        curl \
+        psmisc \
+        rsync \
+        vim \
+        zip \
+        unzip \
+        p7zip-full \
+        htop \
+        screen \
+        tmux \
+        bc \
+        aria2 \
+        cron \
+        pkg-config \
+        plocate \
+        libcairo2-dev \
+        libgoogle-perftools4 \
+        libtcmalloc-minimal4 \
+        apt-transport-https \
+        ca-certificates
 
-# Install Python dependencies
+RUN update-ca-certificates
+
+# Install dependencies
+RUN pip install -U --no-cache-dir jupyterlab \
+        jupyterlab_widgets \
+        ipykernel \
+        ipywidgets \
+        gdown \
+        OhMyRunPod --no-cache-dir --prefer-binary
+
+RUN curl https://rclone.org/install.sh | bash
+
+ # Update rclone
+RUN rclone selfupdate
+RUN curl https://getcroc.schollz.com | bash
+RUN curl -s  \
+    https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh \
+    | bash && \
+        apt install -y speedtest
+
 RUN pip install --upgrade pip setuptools pickleshare --no-cache-dir --prefer-binary
 
 # Upgrade apt packages and install required dependencies
@@ -73,7 +114,7 @@ WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 
 RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-RUN /bin/bash -c 'chmod +x dotnet-install.sh'
+RUN chmod +x dotnet-install.sh
 RUN ./dotnet-install.sh --channel 7.0
 RUN ./dotnet-install.sh --channel 8.0
 
@@ -86,5 +127,9 @@ RUN git clone https://github.com/Stability-AI/StableSwarmUI.git
 WORKDIR ${ROOT}/StableSwarmUI
 RUN git pull
 
+WORKDIR /
+COPY --chmod=755 ./scripts/* ./
+
 # START
-ENTRYPOINT ["/bin/bash", "--host 0.0.0.0", "--port 2254", "--launch_mode none"]
+SHELL ["/bin/bash", "--login", "-c"]
+CMD ["./start.sh"]
