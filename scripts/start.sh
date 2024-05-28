@@ -72,7 +72,7 @@ sync_workspace
 
 start_SWui() {
     echo "Starting SWui service..."
-    /bin/bash ./launch-linux.sh --host 0.0.0.0 --port 2254  --launch_mode none &
+    /bin/bash "${RP_VOLUME}/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254  --launch_mode none &"
 }
 start_SWui
 
