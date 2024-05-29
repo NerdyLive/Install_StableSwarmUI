@@ -115,7 +115,7 @@ WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 
 # clone the github repo
-RUN git clone https://github.com/Stability-AI/StableSwarmUI.git && git pull
+RUN git clone https://github.com/Stability-AI/StableSwarmUI.git
 
 WORKDIR ${ROOT}/StableSwarmUI
 RUN cd launchtools && rm dotnet-install.sh && \
