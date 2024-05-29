@@ -50,7 +50,7 @@ start_ssh() {
 
 sync_workspace() {
   echo "Syncing workspace..."
-  rsync --remove-source-files -rlptDu "${ROOT}" "${RP_VOLUME}"
+  rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   rm -rf "${ROOT}"
   echo "Workspace synced"
 }
