@@ -73,8 +73,10 @@ sync_workspace
 sleep 2
 
 start_SWui() {
+    . /workspace/venv/bin/activate
     echo "Starting SWui service..."
     /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
+    deactivate
 }
 start_SWui
 

@@ -106,7 +106,7 @@ RUN apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
 # Set Python
-RUN ln -s /usr/bin/python3.11 /usr/bin/python
+RUN ln -s /usr/bin/python3.10 /usr/bin/python
 RUN pip cache purge
 
 # Build files
