@@ -114,20 +114,20 @@ WORKDIR ${ROOT}
 
 ENV NVIDIA_VISIBLE_DEVICES=all
 
-RUN wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh
-RUN chmod +x dotnet-install.sh
-RUN ./dotnet-install.sh --channel 7.0
-RUN ./dotnet-install.sh --channel 8.0
-
-# remove the dotnet-install
-RUN rm dotnet-install.sh
-
 # clone the github repo
-RUN git clone https://github.com/Stability-AI/StableSwarmUI.git
+RUN git clone https://github.com/Stability-AI/StableSwarmUI.git && git pull
 
 WORKDIR ${ROOT}/StableSwarmUI
-ENV SWARM_NO_VENV = "false"
-RUN git pull
+RUN cd launchtools && rm dotnet-install.sh && \
+    # https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install
+    wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh && \
+    chmod +x dotnet-install.sh && \
+    ./dotnet-install.sh --channel 8.0 --runtime aspnetcore && \
+    ./dotnet-install.sh --channel 8.0
+
+# Install the required python packages
+ENV SWARM_NO_VENV = "true"
+
 
 COPY --chmod=755 ./scripts/* ./
 
