@@ -32,7 +32,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: ./dockerImage/
+          context: .
           push: true
           tags: nerdylive/stableswarm:${{ github.event.release.tag_name }}
           cache-from: type=registry,ref=nerdylive/stableswarm:buildcache-prod
