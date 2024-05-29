@@ -50,7 +50,8 @@ start_ssh() {
 
 sync_workspace() {
   echo "Syncing workspace..."
-  rclone sync "${ROOT}" "${RP_VOLUME}"
+  rclone --remove-source-files -rlptDu "${ROOT}" "${RP_VOLUME}"
+  rm -rf "${ROOT}"
   echo "Workspace synced"
 }
 
@@ -69,6 +70,7 @@ export_env_vars() {
 
 export_env_vars
 sync_workspace
+sleep 2
 
 start_SWui() {
     echo "Starting SWui service..."
