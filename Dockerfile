@@ -126,7 +126,7 @@ RUN cd launchtools && \
     ./dotnet-install.sh --channel 8.0
 
 # Install the required python packages
-ENV SWARM_NO_VENV = "true"
+ENV SWARM_NO_VENV = "false"
 
 
 COPY --chmod=755 ./scripts/* ./

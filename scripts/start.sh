@@ -74,6 +74,8 @@ sleep 2
 
 start_SWui() {
     . /workspace/venv/bin/activate
+    pip install --upgrade --no-cache-dir --prefer-binary rembg matplotlib opencv_python_headless imageio-ffmpeg \
+      spandrel dill ultralytics
     echo "Starting SWui service..."
     /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
     deactivate
