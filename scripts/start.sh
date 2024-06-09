@@ -53,6 +53,16 @@ sync_workspace() {
   rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   rm -rf "${ROOT}"
   echo "Workspace synced"
+
+  echo "Creating and activating venv"
+  # shellcheck disable=SC2164
+  cd /workspace
+  if [ -d "venv" ]; then
+    echo "venv already exists"
+  else
+  python3 -m venv /workspace/venv
+  fi
+
 }
 
 #call the functions
@@ -74,11 +84,11 @@ sleep 2
 
 start_SWui() {
     . /workspace/venv/bin/activate
+    source /workspace/venv/bin/activate
     pip install --upgrade --no-cache-dir --prefer-binary rembg matplotlib opencv_python_headless imageio-ffmpeg \
       spandrel dill ultralytics
     echo "Starting SWui service..."
     /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
-    deactivate
 }
 start_SWui
 
