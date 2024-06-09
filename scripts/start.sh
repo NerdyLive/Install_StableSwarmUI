@@ -68,7 +68,6 @@ export_env_vars() {
     echo 'source /etc/rp_environment' >> ~/.bashrc
 }
 
-export SWARM_NO_VENV='true'
 export_env_vars
 sync_workspace
 sleep 2
