@@ -50,8 +50,12 @@ start_ssh() {
 
 sync_workspace() {
   echo "Syncing workspace..."
-  rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
-  rm -rf "${ROOT}"
+  # if directory still exists
+  if [ -d "${RP_VOLUME}" ]; then
+    echo "Workspace directory exists"
+  else
+    rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
+  fi
   echo "Workspace synced"
 
   echo "Creating and activating venv"

@@ -128,8 +128,10 @@ RUN cd launchtools && \
 # Install the required python packages
 ENV SWARM_NO_VENV = "false"
 
+# copy from local to container
+RUN mkdir -p /launchx/
+COPY --chmod=755 ./scripts/* /launchx/*
 
-COPY --chmod=755 ./scripts/* ./
-
+WORKDIR /launchx
 # START
 CMD ["./start.sh"]
