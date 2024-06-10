@@ -129,9 +129,7 @@ RUN cd launchtools && \
 ENV SWARM_NO_VENV = "false"
 
 # copy from local to container
-RUN mkdir -p /launchx/
-COPY --chmod=755 ./scripts/* /launchx/*
-
-WORKDIR /launchx
+RUN mkdir -p /launchx
+COPY --chmod=755 ./scripts/start.sh /launchx/start.sh
 # START
-CMD ["./start.sh"]
+CMD ["/launchx/start.sh"]
