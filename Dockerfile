@@ -74,7 +74,7 @@ RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
 RUN update-ca-certificates
 
 # Install dependencies
-RUN pip install -U --no-cache-dir jupyterlab \
+RUN pip install -U jupyterlab \
         jupyterlab_widgets \
         ipykernel \
         ipywidgets \

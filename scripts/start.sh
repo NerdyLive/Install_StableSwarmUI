@@ -62,7 +62,7 @@ sync_workspace() {
   # shellcheck disable=SC2164
   cd /workspace
   if [ -d "venv" ]; then
-    echo "venv already exists"
+    echo "venv already exists [ NOT CREATING VENV ]"
   else
   python3 -m venv /workspace/venv
   fi
@@ -87,9 +87,15 @@ sync_workspace
 sleep 2
 
 start_SWui() {
-    . /workspace/venv/bin/activate
-    source /workspace/venv/bin/activate
-    pip install --upgrade --no-cache-dir --prefer-binary rembg matplotlib opencv_python_headless imageio-ffmpeg \
+    echo "Installing SWui dependencies.."
+    # if activate-pod script exists
+    if [ -f /workspace/venv/bin/activate-pod ]; then
+      . /workspace/venv/bin/activate-pod
+    else
+      . /workspace/venv/bin/activate
+    fi
+
+    pip install --no-cache-dir rembg matplotlib opencv_python_headless imageio-ffmpeg \
       spandrel dill ultralytics
     echo "Starting SWui service..."
     /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
