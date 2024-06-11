@@ -67,6 +67,9 @@ sync_workspace() {
   python3 -m venv /workspace/venv
   fi
 
+  # for serverless and pods files
+  ln -s /workspace /runpod-volume
+
 }
 
 #call the functions
@@ -88,12 +91,7 @@ sleep 2
 
 start_SWui() {
     echo "Installing SWui dependencies.."
-    # if activate-pod script exists
-    if [ -f /workspace/venv/bin/activate-pod ]; then
-      . /workspace/venv/bin/activate-pod
-    else
       . /workspace/venv/bin/activate
-    fi
 
     pip install --no-cache-dir rembg matplotlib opencv_python_headless imageio-ffmpeg \
       spandrel dill ultralytics
