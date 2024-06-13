@@ -51,8 +51,8 @@ start_ssh() {
 sync_workspace() {
   echo "Syncing workspace..."
   # if directory still exists
-  if [ -d "${RP_VOLUME}" ]; then
-    echo "Workspace directory exists"
+  if [ -d "${RP_VOLUME}/StableSwarmUI" ]; then
+    echo "StableSwarmUI already exists [ NOT CREATING ]"
   else
     rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   fi
