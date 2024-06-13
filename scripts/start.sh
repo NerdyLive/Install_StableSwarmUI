@@ -9,11 +9,8 @@ start_nginx() {
 }
 
 start_jupyter() {
-    # Default to not using a password
-    JUPYTER_PASSWORD=""
-
     # Allow a password to be set by providing the JUPYTER_PASSWORD environment variable
-    if [[ ${JUPYTER_LAB_PASSWORD} ]]; then
+    if [[ -z ${JUPYTER_PASSWORD} ]]; then
         JUPYTER_PASSWORD=${JUPYTER_LAB_PASSWORD}
     fi
 
@@ -28,6 +25,7 @@ start_jupyter() {
       --ContentsManager.allow_hidden=True \
       --ServerApp.terminado_settings='{"shell_command":["/bin/bash"]}' \
       --ServerApp.token="${JUPYTER_PASSWORD}" \
+      --ServerApp.password="${JUPYTER_PASSWORD}" \
       --ServerApp.allow_origin=* \
       --ServerApp.preferred_dir=/workspace &> /workspace/logs/jupyter.log &
     echo "Jupyter Lab started"
