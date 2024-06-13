@@ -99,4 +99,7 @@ start_SWui() {
 start_SWui
 
 echo "started Services, ready!"
+
+# printing the jupyter server list
+jupyter server list
 sleep infinity
