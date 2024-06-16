@@ -2,13 +2,15 @@
 # ---------------------------------------------------------------------------- #
 #                          Function Definitions                                #
 # ---------------------------------------------------------------------------- #
-
+source /workspace/venv/bin/activate
+. /workspace/venv/bin/activate
 start_nginx() {
     echo "Starting Nginx service..."
     systemctl start nginx
 }
 
 start_jupyter() {
+    . /workspace/venv/bin/activate
     # Allow a password to be set by providing the JUPYTER_PASSWORD environment variable
     if [[ -z ${JUPYTER_PASSWORD} ]]; then
         JUPYTER_PASSWORD=${JUPYTER_LAB_PASSWORD}
@@ -17,7 +19,7 @@ start_jupyter() {
     echo "Starting Jupyter Lab..."
     mkdir -p /workspace/logs
     cd / && \
-    nohup . /workspace/venv/bin/activate && jupyter lab --allow-root \
+    nohup jupyter lab --allow-root \
       --no-browser \
       --port=7888 \
       --ip=* \
