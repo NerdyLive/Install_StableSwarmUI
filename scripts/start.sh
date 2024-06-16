@@ -17,7 +17,7 @@ start_jupyter() {
     echo "Starting Jupyter Lab..."
     mkdir -p /workspace/logs
     cd / && \
-    nohup jupyter lab --allow-root \
+    nohup . /workspace/venv/bin/activate && jupyter lab --allow-root \
       --no-browser \
       --port=7888 \
       --ip=* \
