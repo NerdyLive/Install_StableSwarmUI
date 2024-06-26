@@ -51,7 +51,7 @@ sync_workspace() {
       echo "Fast Start: use /rp-vol/ComfyUI"
       echo "Copying ComfyUI"
       mkdir -p "${ROOT}/ComfyUI"
-      rsync --progress -rltDu --exclude="${RP_VOLUME}/ComfyUI/models" "${RP_VOLUME}/ComfyUI" "${ROOT}/ComfyUI"
+      rsync --progress -rltDu --exclude="models" "${RP_VOLUME}/ComfyUI" "${ROOT}/"
       ln -s "${ROOT}/ComfyUI/models" "${RP_VOLUME}/ComfyUI/models"
     fi
   else
