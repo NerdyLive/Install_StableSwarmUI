@@ -115,7 +115,7 @@ WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 
 # clone the github repo
-RUN git clone https://github.com/mcmonkeyprojects/SwarmUI.git SwarmUI
+RUN git clone https://github.com/mcmonkeyprojects/SwarmUI.git StableSwarmUI
 
 WORKDIR ${ROOT}/SwarmUI
 RUN cd launchtools && \

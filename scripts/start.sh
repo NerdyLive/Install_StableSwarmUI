@@ -46,16 +46,18 @@ sync_workspace() {
   # if directory still exists
   if [ -d "${RP_VOLUME}/StableSwarmUI" ]; then
     echo "StableSwarmUI already exists [ NOT CREATING ]"
-    rm -rf "${ROOT}/StableSwarmUI" &
-    if [ -d "${RP_VOLUME}/ComfyUI" ]; then
-      echo "Fast Start: use /rp-vol/ComfyUI"
-      echo "Copying ComfyUI"
-      mkdir -p "${ROOT}/ComfyUI"
-      rsync --progress -rltDu "${RP_VOLUME}/ComfyUI/models/checkpoints" "${ROOT}/ComfyUI/models/" &
-      rsync --progress -rltDu --exclude="ComfyUI/models" "${RP_VOLUME}/ComfyUI" "${ROOT}/"
-      find "${RP_VOLUME}/ComfyUI/models" -mindepth 1 -maxdepth 1 -type d ! -name checkpoints \
-       -exec ln -s '{}' "${ROOT}/ComfyUI/models" \;
+    rm -rf "${ROOT}/StableSwarmUI"
+    ComfyUI_installation="${RP_VOLUME}/ComfyUI"
+    # if directory not found
+    if [ ! -d "${ComfyUI_installation}" ]; then
+        ComfyUI_installation="${RP_VOLUME}/StableSwarmUI/dlbackend/comfy/ComfyUI"
     fi
+    echo "Faster ComfyUI: use /rp-vol/ComfyUI"
+    mkdir -p "${ROOT}/ComfyUI"
+    rsync --progress -rltDu "${ComfyUI_installation}/models/checkpoints" "${ROOT}/ComfyUI/models/" &
+    rsync --progress -rltDu --exclude="ComfyUI/models" "${RP_VOLUME}/ComfyUI" "${ROOT}/" &
+    find "${RP_VOLUME}/ComfyUI/models" -mindepth 1 -maxdepth 1 -type d ! -name checkpoints \
+     -exec ln -s '{}' "${ROOT}/ComfyUI/models" \;
   else
     rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   fi
@@ -104,6 +106,6 @@ start_SWui
 echo "started Services, ready!"
 jupyter server list
 echo "Jupyter Lab is running on port 7888"
-echo "StableSwarmUI is running on port 2254"
+echo "SwarmUI is running on port 2254"
 
 sleep infinity
