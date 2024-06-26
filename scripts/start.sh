@@ -46,10 +46,17 @@ sync_workspace() {
   # if directory still exists
   if [ -d "${RP_VOLUME}/StableSwarmUI" ]; then
     echo "StableSwarmUI already exists [ NOT CREATING ]"
+    rm -rf "${ROOT}/StableSwarmUI" &
+    if [ -d "${RP_VOLUME}/ComfyUI" ]; then
+      echo "Fast Start: use /rp-vol/ComfyUI"
+      echo "Copying ComfyUI"
+      mkdir -p "${ROOT}/ComfyUI"
+      rsync --progress -rltDu --exclude="${RP_VOLUME}/ComfyUI/models" "${RP_VOLUME}/ComfyUI" "${ROOT}/ComfyUI"
+      ln -s "${ROOT}/ComfyUI/models" "${RP_VOLUME}/ComfyUI/models"
+    fi
   else
-    rsync -rlptDu "${ROOT}"/* "${RP_VOLUME}"
+    rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   fi
-  echo "Workspace synced"
 
   echo "Creating and activating venv"
   # shellcheck disable=SC2164
@@ -97,5 +104,4 @@ jupyter server list
 echo "Jupyter Lab is running on port 7888"
 echo "StableSwarmUI is running on port 2254"
 
-sleep 30
 sleep infinity
