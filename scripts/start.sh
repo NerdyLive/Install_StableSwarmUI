@@ -51,8 +51,10 @@ sync_workspace() {
       echo "Fast Start: use /rp-vol/ComfyUI"
       echo "Copying ComfyUI"
       mkdir -p "${ROOT}/ComfyUI"
+      rsync --progress -rltDu "${RP_VOLUME}/ComfyUI/models/checkpoints" "${ROOT}/ComfyUI/models/" &
       rsync --progress -rltDu --exclude="ComfyUI/models" "${RP_VOLUME}/ComfyUI" "${ROOT}/"
-      ln -s "${RP_VOLUME}/ComfyUI/models" "${ROOT}/ComfyUI/models"
+      find "${RP_VOLUME}/ComfyUI/models" -mindepth 1 -maxdepth 1 -type d ! -name checkpoints \
+       -exec ln -s '{}' "${ROOT}/ComfyUI/models" \;
     fi
   else
     rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
