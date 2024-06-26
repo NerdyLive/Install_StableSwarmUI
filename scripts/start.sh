@@ -52,7 +52,7 @@ sync_workspace() {
       echo "Copying ComfyUI"
       mkdir -p "${ROOT}/ComfyUI"
       rsync --progress -rltDu --exclude="models" "${RP_VOLUME}/ComfyUI" "${ROOT}/"
-      ln -s "${ROOT}/ComfyUI/models" "${RP_VOLUME}/ComfyUI/models"
+      ln -s "${RP_VOLUME}/ComfyUI/models" "${ROOT}/ComfyUI/models"
     fi
   else
     rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
