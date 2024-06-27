@@ -2,6 +2,11 @@
 # ---------------------------------------------------------------------------- #
 #                          Function Definitions                                #
 # ---------------------------------------------------------------------------- #
+ if [ -d "/workspace/venv" ]; then
+    echo "venv already exists [ NOT CREATING VENV ]"
+    source /workspace/venv/bin/activate
+    . /workspace/venv/bin/activate
+  fi
 start_jupyter() {
     . /workspace/venv/bin/activate
     # Allow a password to be set by providing the JUPYTER_PASSWORD environment variable
@@ -123,14 +128,13 @@ sync_workspace() {
     rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   fi
 
-  echo "Creating and activating venv"
   # shellcheck disable=SC2164
-  cd /workspace
-  if [ -d "venv" ]; then
+  if [ -d "/workspace/venv" ]; then
     echo "venv already exists [ NOT CREATING VENV ]"
     source /workspace/venv/bin/activate
     . /workspace/venv/bin/activate
   else
+    echo "Creating and activating venv"
     python3 -m venv /workspace/venv
     pip install --no-cache-dir rembg matplotlib opencv_python_headless imageio-ffmpeg \
               spandrel dill ultralytics -q -q -q  &
@@ -167,6 +171,7 @@ EXPERIMENT_FASTER_COMFYUI() {
 }
 
 start_SWui() {
+    echo "Starting SwarmUI service..."
     /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
 }
 
