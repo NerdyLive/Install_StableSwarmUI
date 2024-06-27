@@ -158,10 +158,10 @@ EXPERIMENT_FASTER_COMFYUI() {
   fi
 
   echo "[Faster ComfyUI] ComfyUI installation: ${ComfyUI_installation}"
-  mkdir -p "${ROOT}/ComfyUI"
 
+  rsync --progress -rltDu --exclude="ComfyUI/models" "${RP_VOLUME}/ComfyUI" "${ROOT}/"
+  sleep 3
   rsync --progress -rltDu "${ComfyUI_installation}/models/checkpoints" "${ROOT}/ComfyUI/models/" &
-  rsync --progress -rltDu --exclude="ComfyUI/models" "${RP_VOLUME}/ComfyUI/" "${ROOT}/ComfyUI/" &
   find "${RP_VOLUME}/ComfyUI/models" -mindepth 1 -maxdepth 1 -type d ! -name checkpoints \
    -exec ln -s '{}' "${ROOT}/ComfyUI/models" \;
 }
