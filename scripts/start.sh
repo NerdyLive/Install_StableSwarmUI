@@ -128,9 +128,8 @@ sync_workspace() {
     rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   fi
 
-  echo "Creating and activating venv"
-
   if [ ! -d "/workspace/venv" ]; then
+    echo "Creating and activating venv"
     python3 -m venv /workspace/venv
     pip install --no-cache-dir rembg matplotlib opencv_python_headless imageio-ffmpeg \
               spandrel dill ultralytics -q -q -q  &
@@ -160,8 +159,9 @@ EXPERIMENT_FASTER_COMFYUI() {
 
   echo "[Faster ComfyUI] ComfyUI installation: ${ComfyUI_installation}"
   mkdir -p "${ROOT}/ComfyUI"
+
   rsync --progress -rltDu "${ComfyUI_installation}/models/checkpoints" "${ROOT}/ComfyUI/models/" &
-  rsync --progress -rltDu --exclude="ComfyUI/models" "${RP_VOLUME}/ComfyUI" "${ROOT}/" &
+  rsync --progress -rltDu --exclude="ComfyUI/models" "${RP_VOLUME}/ComfyUI/" "${ROOT}/ComfyUI/" &
   find "${RP_VOLUME}/ComfyUI/models" -mindepth 1 -maxdepth 1 -type d ! -name checkpoints \
    -exec ln -s '{}' "${ROOT}/ComfyUI/models" \;
 }
