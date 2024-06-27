@@ -117,7 +117,7 @@ ENV NVIDIA_VISIBLE_DEVICES=all
 # clone the github repo
 RUN git clone https://github.com/mcmonkeyprojects/SwarmUI.git StableSwarmUI
 
-WORKDIR ${ROOT}/SwarmUI
+WORKDIR ${ROOT}/StableSwarmUI
 RUN cd launchtools && \
     # https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install
     wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh && \
