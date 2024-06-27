@@ -168,8 +168,6 @@ EXPERIMENT_FASTER_COMFYUI() {
 start_SWui() {
     /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
 }
-
-EXPERIMENT_FASTER_COMFYUI
 export_env_vars
 sync_workspace
 
