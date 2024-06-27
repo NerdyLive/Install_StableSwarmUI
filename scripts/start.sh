@@ -128,12 +128,7 @@ sync_workspace() {
     rsync --remove-source-files -rlptDu "${ROOT}"/* "${RP_VOLUME}"
   fi
 
-  # shellcheck disable=SC2164
-  if [ -d "/workspace/venv" ]; then
-    echo "venv already exists [ NOT CREATING VENV ]"
-    source /workspace/venv/bin/activate
-    . /workspace/venv/bin/activate
-  else
+  if [ ! -d "/workspace/venv" ]; then
     echo "Creating and activating venv"
     python3 -m venv /workspace/venv
     pip install --no-cache-dir rembg matplotlib opencv_python_headless imageio-ffmpeg \
@@ -171,7 +166,6 @@ EXPERIMENT_FASTER_COMFYUI() {
 }
 
 start_SWui() {
-    echo "Starting SwarmUI service..."
     /bin/bash "${RP_VOLUME}"/StableSwarmUI/launch-linux.sh --host 0.0.0.0 --port 2254 --launch_mode none &
 }
 
