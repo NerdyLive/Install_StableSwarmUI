@@ -15,9 +15,9 @@ ENV PYTHONUNBUFFERED=1
 ENV ROOT="/rp-vol" \
 	RP_VOLUME="/workspace"
 ENV HF_DATASETS_CACHE="/runpod-volume/huggingface-cache/datasets" \
-    HUGGINGFACE_HUB_CACHE="/runpod-volume/huggingface-cache/hub" \
+    HF_HUB_CACHE="/runpod-volume/huggingface-cache/hub" \
     HF_HOME="/runpod-volume/huggingface-cache" \
-    HF_TRANSFER=1
+    HF_HUB_ENABLE_HF_TRANSFER=1
 
 # Update apps
 RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \
@@ -115,9 +115,9 @@ WORKDIR ${ROOT}
 ENV NVIDIA_VISIBLE_DEVICES=all
 
 # clone the github repo
-RUN git clone https://github.com/mcmonkeyprojects/SwarmUI.git SwarmUI
+RUN git clone https://github.com/mcmonkeyprojects/SwarmUI.git StableSwarmUI
 
-WORKDIR ${ROOT}/SwarmUI
+WORKDIR ${ROOT}/StableSwarmUI
 RUN cd launchtools && \
     # https://learn.microsoft.com/en-us/dotnet/core/install/linux-scripted-manual#scripted-install
     wget https://dot.net/v1/dotnet-install.sh -O dotnet-install.sh && \
