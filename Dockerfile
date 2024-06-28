@@ -15,9 +15,9 @@ ENV PYTHONUNBUFFERED=1
 ENV ROOT="/rp-vol" \
 	RP_VOLUME="/workspace"
 ENV HF_DATASETS_CACHE="/runpod-volume/huggingface-cache/datasets" \
-    HUGGINGFACE_HUB_CACHE="/runpod-volume/huggingface-cache/hub" \
+    HF_HUB_CACHE="/runpod-volume/huggingface-cache/hub" \
     HF_HOME="/runpod-volume/huggingface-cache" \
-    HF_TRANSFER=1
+    HF_HUB_ENABLE_HF_TRANSFER=1
 
 # Update apps
 RUN --mount=type=cache,id=dev-apt-cache,sharing=locked,target=/var/cache/apt \

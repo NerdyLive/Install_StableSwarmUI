@@ -132,7 +132,7 @@ sync_workspace() {
     echo "Creating and activating venv"
     python3 -m venv /workspace/venv
     pip install --no-cache-dir rembg matplotlib opencv_python_headless imageio-ffmpeg \
-              spandrel dill ultralytics -q -q -q  &
+              spandrel dill ultralytics huggingface_hub\[hf_transfer\] -q -q -q  &
     echo "pip installing some packages... Restart after 10 minutes of running if some packages aren't found"
   fi
 
